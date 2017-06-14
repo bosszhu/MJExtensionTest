@@ -20,4 +20,19 @@
 //              @"bag" : @"other.bag"
 //             };
 //}
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    
+    return @{
+             @"ID" : @[@"bookID",@"id",@"book_id"],
+             @"desc" : @"desciption",
+             @"oldName" : @"name.oldName",
+             @"nowName" : @"name.newName",
+             @"nameChangedTime" : @"name.info[1].nameChangedTime",
+             @"bag" : @"other.bag"
+             };
+}
+
+MJExtensionLogAllProperties
+
 @end

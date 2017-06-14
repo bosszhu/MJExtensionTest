@@ -13,6 +13,8 @@
 #import "ZLStatusResult.h"
 #import "MJAd.h"
 #import "ZLStudent.h"
+#import "YYModel.h"
+
 typedef enum {
     SexMale,
     SexFemale
@@ -29,10 +31,135 @@ typedef enum {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self testYYModel];
-    [self testMJExtension];
+//    [self testMJExtension];
 }
 - (void)testYYModel {
+    // 1.定义一个字典(简单)
+    NSDictionary *dict1 = @{
+                            @"name" : @"Jack",
+                            @"icon" : @"lufy.png",
+                            @"age" : @"20",
+                            @"height" : @1.55,
+                            @"money" : @"100.9",
+                            @"sex" : @(SexFemale),
+                            @"gay" : @"1"
+                            };
+    //字典转模型
+//    ZLUser *user = [ZLUser yy_modelWithDictionary:dict1];
+//    ZLUser *user = [ZLUser yy_modelWithJSON:dict1];
     
+    // 2.定义一个JSON字符串
+    NSString *jsonString = @"{\"name\":\"Jack\", \"icon\":\"lufy.png\", \"age\":20, \"height\":333333.7}";
+//    ZLUser *user = [ZLUser yy_modelWithJSON:jsonString];
+//    NSLog(@"%@",user);
+    // 3.定义一个字典(复杂)
+    NSDictionary *dict2 = @{
+                            @"text" : @"是啊，今天天气确实不错！",
+                            
+                            @"user" : @{
+                                    @"name" : @"Jack",
+                                    @"icon" : @"lufy.png"
+                                    },
+                            
+                            @"retweetedStatus" : @{
+                                    @"text" : @"今天天气真不错！",
+                                    
+                                    @"user" : @{
+                                            @"name" : @"Rose",
+                                            @"icon" : @"nami.png"
+                                            }
+                                    }
+                            };
+    
+//    ZLStatus *status = [ZLStatus yy_modelWithJSON:dict2];
+//    NSLog(@"%@",status);
+    // 4.定义一个字典(复杂2,字典内是数组)
+    NSDictionary *dict3 = @{
+                            @"statuses" : @[
+                                    @{
+                                        @"text" : @"今天天气真不错！",
+                                        
+                                        @"user" : @{
+                                                @"name" : @"Rose",
+                                                @"icon" : @"nami.png"
+                                                }
+                                        },
+                                    
+                                    @{
+                                        @"text" : @"明天去旅游了",
+                                        
+                                        @"user" : @{
+                                                @"name" : @"Jack",
+                                                @"icon" : @"lufy.png"
+                                                }
+                                        }
+                                    
+                                    ],
+                            
+                            @"ads" : @[
+                                    @{
+                                        @"image" : @"ad01.png",
+                                        @"url" : @"http://www.小码哥ad01.com"
+                                        },
+                                    @{
+                                        @"image" : @"ad02.png",
+                                        @"url" : @"http://www.小码哥ad02.com"
+                                        }
+                                    ],
+                            
+                            @"totalNumber" : @"2014",
+                            @"previousCursor" : @"13476589",
+                            @"nextCursor" : @"13476599"
+                            };
+//    [ZLStatusResult mj_setupObjectClassInArray:^NSDictionary *{
+//        return @{
+//                 @"statuses" : [ZLStatus class], // @"statuses" : [MJStatus class],
+//                 @"ads" : @"MJAd" // @"ads" : [MJAd class]
+//                 };
+//    }];
+    
+//    ZLStatusResult *statusResult = [ZLStatusResult yy_modelWithJSON:dict3];
+//    NSLog(@"%@",statusResult);
+    // 5.定义一个字典(多级映射)
+    NSDictionary *dict4 = @{
+                            @"id" : @"20",
+                            @"desciption" : @"好孩子",
+                            @"name" : @{
+                                    @"newName" : @"lufy",
+                                    @"oldName" : @"kitty",
+                                    @"info" : @[
+                                            @"test-data",
+                                            @{@"nameChangedTime" : @"2013-08-07"}
+                                            ]
+                                    },
+                            @"other" : @{
+                                    @"bag" : @{
+                                            @"name" : @"小书包",
+                                            @"price" : @100.7
+                                            }
+                                    }
+                            };
+    
+//    ZLStudent *student = [ZLStudent yy_modelWithDictionary:dict4];
+//    NSLog(@"%@",student);
+    // 6.定义一个字典数组
+    NSArray *dictArray1 = @[
+                            @{
+                                @"name" : @"Jack",
+                                @"icon" : @"lufy.png",
+                                },
+                            
+                            @{
+                                @"name" : @"Rose",
+                                @"icon" : @"nami.png",
+                                }
+                            ];
+    NSArray *userArray = [NSArray yy_modelArrayWithClass:[ZLUser class] json:dictArray1];
+    // 3.打印userArray数组中的MJUser模型属性
+    NSLog(@"%@",userArray);
+    for (ZLUser *user in userArray) {
+        MJExtensionLog(@"name=%@, icon=%@", user.name, user.icon);
+    }
 }
 
 - (void)testMJExtension {

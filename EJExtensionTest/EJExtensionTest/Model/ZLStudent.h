@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YYModel.h"
 #import "ZLBag.h"
 #import "MJExtension.h"
+
+
 @interface ZLStudent : NSObject
 @property (copy, nonatomic) NSString *ID;
 @property (copy, nonatomic) NSString *otherName;

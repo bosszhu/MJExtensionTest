@@ -15,5 +15,12 @@
 //        @"ads" : @"MJAd"
 //    };
 //}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{
+             @"statuses" : [ZLStatus class],
+                     @"ads" : @"MJAd"
+             };
+}
 MJExtensionLogAllProperties
 @end
